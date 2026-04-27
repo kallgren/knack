@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: DeLaGuardo/setup-clojure@13.0
+        with:
+          cli: latest
+          clj-kondo: latest
+
+      - name: Cache cljs/maven
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2
+            ~/.gitlibs
+            .shadow-cljs
+          key: ${{ runner.os }}-cljs-${{ hashFiles('deps.edn', 'shadow-cljs.edn') }}
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: clj-kondo --lint src test
+
+      - name: Format check
+        run: clojure -M:cljfmt check
+
+      - name: Test
+        run: pnpm test
+
+      - name: Release build
+        run: pnpm build

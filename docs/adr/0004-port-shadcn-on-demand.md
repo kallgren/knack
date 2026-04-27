@@ -1,0 +1,3 @@
+# Port Shadcn components on demand; no JS build pipeline
+
+The obvious path with Shadcn (which is React TSX source you copy in) is to set up a parallel Vite/esbuild pipeline so the components compile and CLJS imports them via React interop. We rejected that to keep the project pure-CLJS, single-build, single-language. Instead: for primitives where accessibility is hard (Dialog, DropdownMenu, Command, Popover, Tooltip), wrap the corresponding `@radix-ui/react-*` package via UIx interop and copy Shadcn's Tailwind class strings; for simple primitives (Button, Input, Card, Badge), write directly in UIx + Tailwind.

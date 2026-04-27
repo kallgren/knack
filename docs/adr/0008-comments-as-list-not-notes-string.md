@@ -1,0 +1,3 @@
+# Comments as a list from MVP day 1, not a `:notes` string
+
+A **Job** carries `:comments` — a list of `{:id :body :at}` maps — instead of a single free-text `:notes` field. The MVP UI is deliberately minimal (chronological list of existing comments + one "add comment" input; no edit, no delete) but the data shape is the future-proof one. The alternative was a `:notes` textarea now, migrated to comments later; rejected because the migration source is unstructured user-typed text, which is exactly the kind of migration that goes wrong. Paying ~40 lines of UI cost upfront avoids a parser-driven migration that would never round-trip cleanly. See also the **Comment** vs. **History event** distinction in `CONTEXT.md`.

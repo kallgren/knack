@@ -1,0 +1,3 @@
+# Malli as the schema source of truth
+
+The data model is defined once in `app.schema` using Malli, and that schema is the canonical contract for every other module — storage validates on load and save, the import/export pipeline coerces JSON through it, the form modal derives validation messages from it, and `test.check` generators (when added) use it. Plain CLJS maps and `clojure.spec` were the alternatives; Malli was picked because its decode/encode transformers are exactly what the JSON ↔ EDN round-trip needs and because a single schema namespace is the highest-leverage file an agent can read to understand the whole app's shape.

@@ -1,0 +1,35 @@
+{
+  "name": "knack",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A kanban companion for your job search.",
+  "packageManager": "pnpm@9.12.3",
+  "scripts": {
+    "dev": "concurrently -k -n cljs,css \"shadow-cljs watch app\" \"tailwindcss -i src/css/main.css -o public/css/main.css --watch\"",
+    "build": "shadow-cljs release app && tailwindcss -i src/css/main.css -o public/css/main.css --minify",
+    "test": "shadow-cljs compile test && node out/node-tests.js",
+    "lint": "clj-kondo --lint src test",
+    "fmt": "clojure -M:cljfmt check",
+    "fmt:fix": "clojure -M:cljfmt fix",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "concurrently": "8.2.2",
+    "husky": "9.1.7",
+    "lint-staged": "15.2.10",
+    "shadow-cljs": "2.28.20",
+    "tailwindcss": "^4.1.0"
+  },
+  "lint-staged": {
+    "*.cljs": [
+      "clj-kondo --lint",
+      "clojure -M:cljfmt fix",
+      "bash -c 'pnpm test'"
+    ]
+  }
+}

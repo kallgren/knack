@@ -1,0 +1,3 @@
+# Storage adapter seam via app.data.ifc facade
+
+The data layer is split into three modules: a public `app.data.ifc` facade (the only thing UI imports), an internal `app.data.state` (atom + reactivity), and an internal `app.data.storage` (persistence with an adapter protocol). The adapter seam lives at `storage`, not at the facade — production uses a localStorage adapter, tests use an in-memory adapter, and a future Drive adapter slots in without touching state, schema, or UI. State and storage are kept separate because they have different reasons to change; the facade keeps the public surface narrow.
