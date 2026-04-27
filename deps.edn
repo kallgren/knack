@@ -1,10 +1,10 @@
 {:paths ["src" "test"]
- :deps  {org.clojure/clojure       {:mvn/version "1.12.0"}
-         org.clojure/clojurescript {:mvn/version "1.11.132"}
-         com.pitch/uix.core        {:mvn/version "1.4.4"}
-         com.pitch/uix.dom         {:mvn/version "1.4.4"}
-         metosin/malli             {:mvn/version "0.17.0"}
-         thheller/shadow-cljs      {:mvn/version "2.28.20"}}
+ :deps  {org.clojure/clojure       {:mvn/version "1.12.4"}
+         org.clojure/clojurescript {:mvn/version "1.12.134"}
+         com.pitch/uix.core        {:mvn/version "1.4.9"}
+         com.pitch/uix.dom         {:mvn/version "1.4.9"}
+         metosin/malli             {:mvn/version "0.20.1"}
+         thheller/shadow-cljs      {:mvn/version "3.4.5"}}
  :aliases
- {:cljfmt {:extra-deps {dev.weavejester/cljfmt {:mvn/version "0.13.0"}}
+ {:cljfmt {:extra-deps {dev.weavejester/cljfmt {:mvn/version "0.16.4"}}
            :main-opts  ["-m" "cljfmt.main"]}}}
